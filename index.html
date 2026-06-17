@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Without Borders - SDG 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Print formatting */
+        .print-only { display: none; }
+        
+        @media print {
+            /* Force background colors and graphics to print */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Hide the main app layout when printing */
+            #welcome-app, #main-app { display: none !important; }
+            
+            /* Show specific print areas based on body class */
+            body.printing-portfolio #print-portfolio { display: block; position: absolute; left: 0; top: 0; width: 100%; padding: 40px; }
+            
+            /* Basic typography for print */
+            .print-only { font-family: 'Inter', sans-serif; color: #000; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-red-200 selection:text-red-900">
+
+    <!-- LANDING PAGE (WELCOME VIEW) -->
+    <div id="welcome-app" class="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 text-center relative">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border border-red-100">
+            <div class="w-2 h-2 rounded-full bg-red-600"></div>
+            SDG 4 - Quality Education
+        </div>
+        
+        <!-- Header -->
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 tracking-tight">Learning Without Borders</h1>
+        <p class="text-lg text-slate-500 mb-8 font-light">Students' Voices for Quality Education</p>
+
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border border-slate-100 p-6 md:p-8 w-full max-w-[480px] text-left">
+            <h2 class="text-xl font-bold text-slate-900 mb-2">Welcome! Let's Get Started</h2>
+            <p class="text-sm text-slate-500 mb-6">Before we begin, please tell us a bit about yourself so we can personalize your learning experience.</p>
+
+            <div class="mb-5">
+                <label class="block text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wide">Student Number <span class="text-red-500">*</span></label>
+                <input type="text" id="welcome-student-id" placeholder="e.g., STU001" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors bg-slate-50 focus:bg-white placeholder-slate-400">
+                <p id="student-id-error" class="text-red-500 text-xs mt-1.5 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please enter your student number to proceed.</p>
+            </div>
+
+            <div class="mb-8">
+                <label class="block text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wide">Your Country</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Philippines" class="peer sr-only" checked>
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🇵🇭</span> Philippines
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Bangladesh" class="peer sr-only">
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🇧🇩</span> Bangladesh
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Switzerland" class="peer sr-only">
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🇨🇭</span> Switzerland
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Mongolia" class="peer sr-only">
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🇲🇳</span> Mongolia
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Portugal" class="peer sr-only">
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🇵🇹</span> Portugal
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="welcome-country" value="Other" class="peer sr-only">
+                        <div class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-sm peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-800 peer-checked:font-medium hover:bg-slate-50 transition-all flex items-center gap-2">
+                            <span class="text-lg">🌍</span> Other
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button onclick="startModule()" class="w-full bg-[#cb3e3e] hover:bg-red-700 text-white font-medium py-3.5 px-4 rounded-xl transition-all shadow-sm hover:shadow flex items-center justify-center gap-2">
+                Begin Learning &rarr;
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION (DASHBOARD) -->
+    <div id="main-app" class="hidden h-screen bg-slate-50 flex-col md:flex-row">
+        <!-- Sidebar Navigation -->
+        <nav class="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-slate-200 flex-shrink-0 flex flex-col shadow-sm z-10">
+            <div class="p-6 border-b border-slate-100 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-800 leading-tight">SDG 4 Module</h1>
+                    <p class="text-xs text-slate-500">Quality Education</p>
+                </div>
+            </div>
+            
+            <div class="p-4 space-y-1 flex-grow overflow-y-auto">
+                <button onclick="showView('home')" id="nav-home" class="w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg bg-blue-50 text-blue-700 font-semibold transition-colors">
+                    <i class="fa-solid fa-house w-5"></i> Overview
+                </button>
+                <button onclick="showView('week1')" id="nav-week1" class="w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                    <i class="fa-solid fa-book-open w-5"></i> Week 1
+                </button>
+                <button onclick="showView('week2')" id="nav-week2" class="w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                    <i class="fa-solid fa-microphone w-5"></i> Week 2
+                </button>
+                <button onclick="showView('week3')" id="nav-week3" class="w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                    <i class="fa-solid fa-handshake w-5"></i> Week 3
+                </button>
+                <button onclick="showView('week4')" id="nav-week4" class="w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors">
+                    <i class="fa-solid fa-bullhorn w-5"></i> Week 4
+                </button>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold text-slate-500 uppercase">Your Progress</span>
+                    <span id="progress-text" class="text-xs font-bold text-blue-600">0%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2 mb-4">
+                    <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="text-xs text-slate-500 flex items-center gap-2">
+                        <i class="fa-regular fa-user"></i> <span id="sidebar-student-id">Student</span> (<span id="sidebar-country">Country</span>)
+                    </div>
+                    <button onclick="logout()" class="text-[10px] uppercase font-bold text-slate-400 hover:text-red-600 transition-colors">Change</button>
+                </div>
+                <button onclick="downloadPortfolio()" class="w-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2 text-sm">
+                    <i class="fa-solid fa-print"></i> Print / Save Answers
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow overflow-y-auto bg-slate-50 relative">
+            <!-- Toast Notification -->
+            <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800/90 backdrop-blur text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 scale-95 pointer-events-none z-50 text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-lock text-yellow-400"></i> <span id="toast-msg">Message</span>
+            </div>
+
+            <!-- Topbar (Mobile) -->
+            <div class="md:hidden bg-white p-4 border-b border-slate-200 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+                <div class="font-bold text-slate-800">Learning Without Borders</div>
+                <button onclick="document.querySelector('nav').classList.toggle('hidden')" class="text-slate-600 p-2">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-6 md:p-10 max-w-4xl mx-auto pb-24">
+                
+                <!-- VIEW: HOME / OVERVIEW -->
+                <div id="view-home" class="view-section block animate-fade-in">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 mb-8 text-center">
+                        <div class="inline-block p-3 bg-blue-50 text-blue-600 rounded-full mb-4">
+                            <i class="fa-solid fa-globe text-3xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-slate-800 mb-3">Module Overview</h2>
+                        <p class="text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                            Welcome back! This module connects students globally to explore Sustainable Development Goal 4: Quality Education. Through reflection, research, and international dialogue, you will build a deeper understanding of global education systems.
+                        </p>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div id="card-week1" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow cursor-pointer" onclick="showView('week1')">
+                            <div class="text-blue-600 mb-3 icon-container"><i class="fa-solid fa-book-open text-2xl"></i></div>
+                            <h3 class="font-bold text-slate-800 mb-2">Week 1: My Story</h3>
+                            <p class="text-sm text-slate-600">Reflect on your personal educational experiences and learn about global SDG 4 facts.</p>
+                        </div>
+                        <div id="card-week2" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 transition-all cursor-pointer" onclick="showView('week2')">
+                            <div class="text-blue-600 mb-3 icon-container"><i class="fa-solid fa-microphone text-2xl"></i></div>
+                            <h3 class="font-bold text-slate-800 mb-2">Week 2: Student Voices</h3>
+                            <p class="text-sm text-slate-600">Conduct a group project to document the educational realities in your community.</p>
+                        </div>
+                        <div id="card-week3" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 transition-all cursor-pointer" onclick="showView('week3')">
+                            <div class="text-blue-600 mb-3 icon-container"><i class="fa-solid fa-handshake text-2xl"></i></div>
+                            <h3 class="font-bold text-slate-800 mb-2">Week 3: Dialogue</h3>
+                            <p class="text-sm text-slate-600">Compare findings globally and reflect on the partner school discussions.</p>
+                        </div>
+                        <div id="card-week4" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 transition-all cursor-pointer" onclick="showView('week4')">
+                            <div class="text-blue-600 mb-3 icon-container"><i class="fa-solid fa-bullhorn text-2xl"></i></div>
+                            <h3 class="font-bold text-slate-800 mb-2">Week 4: Advocacy</h3>
+                            <p class="text-sm text-slate-600">Create final recommendations and write your personal quality education pledge.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: WEEK 1 -->
+                <div id="view-week1" class="view-section hidden animate-fade-in">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-blue-600 pb-2 inline-block">Week 1: My Education Story</h2>
+                    <p class="text-slate-600 mb-8 mt-4">Objective: Understand SDG 4 and reflect on your personal educational experiences.</p>
+
+                    <!-- Reading Section -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-book text-blue-600 mr-2"></i> Lesson: The Global State of Quality Education (SDG 4)</h3>
+                        <div class="prose max-w-none text-slate-700 leading-relaxed space-y-4">
+                            <p><strong>Sustainable Development Goal 4 (SDG 4)</strong> aims to "ensure inclusive and equitable quality education and promote lifelong learning opportunities for all." While significant progress has been made globally, profound challenges remain across all regions.</p>
+                            
+                            <p>According to the <strong>United Nations</strong>, prior to the COVID-19 pandemic, projections showed that more than 200 million children would still be out of school by 2030. Today, disparities in education are not just about access, but about the <em>quality</em> of learning and the environments in which students study.</p>
+                            
+                            <p><strong>Global Challenges to Quality Education:</strong></p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Infrastructure and Resources:</strong> The <strong>UNESCO Institute for Statistics</strong> reports that in many developing regions, a significant percentage of schools lack basic resources like electricity, clean drinking water, handwashing facilities, and computers with internet access.</li>
+                                <li><strong>The Digital Divide:</strong> The <strong>OECD</strong> highlights that the shift to digital learning has exacerbated inequalities. Students without access to reliable internet or devices are falling behind, highlighting a critical gap in modern educational equity.</li>
+                                <li><strong>Teacher Training and Ratios:</strong> In Sub-Saharan Africa and Southern Asia, there remains a severe shortage of trained teachers, leading to overcrowded classrooms and diminished individual student support.</li>
+                                <li><strong>Safe Learning Environments:</strong> Quality education also requires a safe space. Bullying, gender discrimination, and conflict continue to disrupt learning for millions of students worldwide.</li>
+                            </ul>
+
+                            <div class="bg-slate-50 border-l-4 border-slate-400 p-4 mt-6 text-sm">
+                                <p class="font-semibold text-slate-800 mb-1">References & Sources:</p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>United Nations Department of Economic and Social Affairs (UNDESA). <em>The Sustainable Development Goals Report</em>.</li>
+                                    <li>UNESCO Institute for Statistics (UIS) Database. <em>Education Data</em>.</li>
+                                    <li>OECD (2021). <em>The State of Global Education: 18 Months into the Pandemic</em>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Section -->
+                    <div class="bg-blue-50 rounded-xl shadow-sm border border-blue-100 p-6 md:p-8 mb-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-check text-blue-600 mr-2"></i> Knowledge Check</h3>
+                        
+                        <div id="quiz-container" class="space-y-6">
+                            <!-- Q1 -->
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <p class="font-semibold mb-3">1. What is the main goal of SDG 4?</p>
+                                <div class="space-y-2">
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q1" value="a" class="mr-3 text-blue-600 focus:ring-blue-500"> A) To eliminate all examinations in schools.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q1" value="b" class="mr-3 text-blue-600 focus:ring-blue-500"> B) To ensure inclusive and equitable quality education for all.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q1" value="c" class="mr-3 text-blue-600 focus:ring-blue-500"> C) To focus strictly on university-level education.</label>
+                                </div>
+                            </div>
+
+                            <!-- Q2 -->
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <p class="font-semibold mb-3">2. According to UNESCO, which of the following is considered a basic resource lacking in many schools in developing regions?</p>
+                                <div class="space-y-2">
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q2" value="a" class="mr-3 text-blue-600 focus:ring-blue-500"> A) Virtual Reality headsets.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q2" value="b" class="mr-3 text-blue-600 focus:ring-blue-500"> B) Clean drinking water and handwashing facilities.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q2" value="c" class="mr-3 text-blue-600 focus:ring-blue-500"> C) 3D Printers.</label>
+                                </div>
+                            </div>
+
+                            <!-- Q3 -->
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                                <p class="font-semibold mb-3">3. How has the shift to digital learning impacted educational equity, according to the OECD?</p>
+                                <div class="space-y-2">
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q3" value="a" class="mr-3 text-blue-600 focus:ring-blue-500"> A) It has completely solved educational inequality.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q3" value="b" class="mr-3 text-blue-600 focus:ring-blue-500"> B) It has exacerbated inequalities due to the digital divide.</label>
+                                    <label class="flex items-center p-3 border rounded cursor-pointer hover:bg-slate-50 transition-colors"><input type="radio" name="q3" value="c" class="mr-3 text-blue-600 focus:ring-blue-500"> C) It has had no measurable impact on global students.</label>
+                                </div>
+                            </div>
+
+                            <button onclick="checkQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors">Submit Answers</button>
+                            <div id="quiz-feedback" class="mt-4 hidden p-4 rounded font-medium"></div>
+                        </div>
+                    </div>
+
+                    <!-- Reflection Section -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-pen text-blue-600 mr-2"></i> My Education Story Reflection</h3>
+                        <p class="text-sm text-slate-600 mb-6">Answer the following questions to complete Week 1. You may write an essay, or describe a poster/infographic you plan to create.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">1. What helps you learn effectively?</label>
+                                <textarea id="w1-q1" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="E.g., I learn best when the teacher uses visual aids..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">2. What challenges do students face in your school?</label>
+                                <textarea id="w1-q2" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="E.g., Sometimes the internet connection is slow..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">3. How is technology used in your learning?</label>
+                                <textarea id="w1-q3" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="E.g., We use tablets for research..."></textarea>
+                            </div>
+                            <button onclick="saveProgress('week1')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-save"></i> Save Reflection
+                            </button>
+                            <span id="w1-save-msg" class="text-green-600 text-sm ml-4 hidden">Saved successfully!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: WEEK 2 -->
+                <div id="view-week2" class="view-section hidden animate-fade-in">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-blue-600 pb-2 inline-block">Week 2: Student Voices Project</h2>
+                    <p class="text-slate-600 mb-8 mt-4">Objective: Document and share educational realities in your local community.</p>
+
+                    <!-- Group Notification -->
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-8 flex items-start gap-4">
+                        <div class="text-blue-600 mt-1">
+                            <i class="fa-solid fa-users text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-blue-900 mb-1">Group Collaborative Activity</h3>
+                            <p class="text-sm text-blue-800">You will complete the tasks in this week collaboratively with your assigned group. Discuss your chosen topic together, divide the research tasks, and create your final project as a team.</p>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Project Guidelines -->
+                    <div class="space-y-6 mb-8">
+                        
+                        <!-- Row 1: Steps 1 & 2 -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Step 1: Choose a Topic -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-sm mr-2">Step 1</span> Choose a Topic</h3>
+                                <p class="text-sm text-slate-600 mb-3">As a group, select one area of focus for your project:</p>
+                                <ul class="list-none space-y-2 text-slate-700">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Learning Environment</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Access to Technology</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Student Well-being</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> AI in Education</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Educational Opportunities</li>
+                                </ul>
+                            </div>
+
+                            <!-- Step 2: Conduct Interviews -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                                <h3 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-sm mr-2">Step 2</span> Conduct Interviews</h3>
+                                <p class="text-sm text-slate-600 mb-3">Interview 2-3 students, teachers, or community members. Use these guide questions to start:</p>
+                                <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700 italic">
+                                    <li>"How would you describe your current learning environment?"</li>
+                                    <li>"What is the biggest challenge you face in accessing quality education?"</li>
+                                    <li>"How does technology help or hinder your learning?"</li>
+                                    <li>"If you could change one thing about your school, what would it be?"</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Create Output & AI Guidelines -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-sm mr-2">Step 3</span> Create Your Output</h3>
+                            <p class="text-sm text-slate-600 mb-4">Synthesize your findings and create one of the following multimedia outputs to share your community's story:</p>
+                            
+                            <div class="flex flex-wrap gap-3 mb-6">
+                                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full text-sm border border-slate-200"><i class="fa-solid fa-podcast mr-1"></i> Audio Podcast</span>
+                                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full text-sm border border-slate-200"><i class="fa-solid fa-video mr-1"></i> Video Interview</span>
+                                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full text-sm border border-slate-200"><i class="fa-solid fa-file-powerpoint mr-1"></i> Presentation Slide Deck</span>
+                                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-full text-sm border border-slate-200"><i class="fa-solid fa-book-open mr-1"></i> Digital Storyboard</span>
+                            </div>
+
+                            <!-- AI and Human Agency Callout -->
+                            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-5 rounded-r-lg">
+                                <h4 class="font-bold text-indigo-900 mb-2 flex items-center gap-2 text-lg">
+                                    <i class="fa-solid fa-robot"></i> AI Research & Human Agency
+                                </h4>
+                                <p class="text-sm text-indigo-800 mb-3 leading-relaxed">
+                                    You are encouraged to use AI tools (like Gemini or ChatGPT) to brainstorm ideas, outline your project structure, or research background facts about SDG 4 to provide context to your local findings.
+                                </p>
+                                <p class="text-sm text-indigo-900 font-semibold mb-1 flex items-center gap-1">
+                                    <i class="fa-solid fa-user-shield text-indigo-600"></i> Important: Maintain Your Human Agency!
+                                </p>
+                                <p class="text-sm text-indigo-800 leading-relaxed">
+                                    AI is a helpful assistant, but <strong>you are the author and editor</strong>. Do not simply copy and paste AI-generated text. You must critically evaluate all AI suggestions and verify facts against reliable sources. Ensure your final project authentically reflects the real voices, emotions, and specific contexts of your local interviews. Your unique human perspective and local insights are irreplaceable.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Reflection Section -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-clipboard-list text-blue-600 mr-2"></i> Project Reflection</h3>
+                        <p class="text-sm text-slate-600 mb-6">After completing your group project, fill out this individual reflection.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">1. What did your group learn from the interviews/research?</label>
+                                <textarea id="w2-q1" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">2. What specific educational challenges were identified in your community?</label>
+                                <textarea id="w2-q2" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">3. What strengths does your community have regarding education?</label>
+                                <textarea id="w2-q3" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <button onclick="saveProgress('week2')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-save"></i> Save Reflection
+                            </button>
+                            <span id="w2-save-msg" class="text-green-600 text-sm ml-4 hidden">Saved successfully!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: WEEK 3 -->
+                <div id="view-week3" class="view-section hidden animate-fade-in">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-blue-600 pb-2 inline-block">Week 3: Learning Without Borders</h2>
+                    <p class="text-slate-600 mb-8 mt-4">Objective: Learn from international peers and engage in a cross-cultural dialogue.</p>
+
+                    <div class="bg-indigo-50 rounded-xl shadow-sm border border-indigo-100 p-6 mb-8 text-indigo-900">
+                        <h3 class="font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-video"></i> Upcoming Partner School Dialogue</h3>
+                        <p class="text-sm">Prepare to discuss: What quality education means, common challenges, the role of AI in learning, and what we can learn from each other.</p>
+                    </div>
+
+                    <!-- Comparison Chart -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Pre-Dialogue Comparison</h3>
+                        <p class="text-sm text-slate-600 mb-4">Review outputs from partner countries and note your observations.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block font-semibold text-slate-700 text-sm mb-1">Similarities</label>
+                                <textarea id="w3-chart-sim" rows="2" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 text-sm mb-1">Differences</label>
+                                <textarea id="w3-chart-diff" rows="2" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 text-sm mb-1">Surprising Findings</label>
+                                <textarea id="w3-chart-surp" rows="2" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post-Dialogue Reflection -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-comments text-blue-600 mr-2"></i> Post-Dialogue Reflection</h3>
+                        <p class="text-sm text-slate-600 mb-6">After completing your video call with the partner school, reflect on the discussion.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">What was the most important thing you learned from your global peers?</label>
+                                <textarea id="w3-reflection" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <button onclick="saveProgress('week3')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-check"></i> Save Reflection
+                            </button>
+                            <span id="w3-save-msg" class="text-green-600 text-sm ml-4 hidden">Saved successfully!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW: WEEK 4 -->
+                <div id="view-week4" class="view-section hidden animate-fade-in">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-blue-600 pb-2 inline-block">Week 4: Advocacy & Action</h2>
+                    <p class="text-slate-600 mb-8 mt-4">Objective: Develop concrete recommendations and pledge your commitment as a quality education advocate.</p>
+
+                    <!-- Final Output -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-8">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4"><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i> Final Recommendations</h3>
+                        <p class="text-sm text-slate-600 mb-6">Synthesizing everything from local research to global dialogue, outline your final recommendations for Quality Education in the Age of AI.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">Recommendations for Inclusive Education</label>
+                                <textarea id="w4-rec-inc" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">Recommendations for Student Well-being</label>
+                                <textarea id="w4-rec-well" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-semibold text-slate-700 mb-2">Recommendations for Responsible AI Use</label>
+                                <textarea id="w4-rec-ai" rows="3" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manifesto -->
+                    <div class="bg-gradient-to-br from-blue-900 to-indigo-800 rounded-xl shadow-md border border-indigo-900 p-6 md:p-8 text-white relative overflow-hidden">
+                        <!-- Decorative background icon -->
+                        <i class="fa-solid fa-quote-right absolute -right-6 -top-6 text-9xl text-white/5 pointer-events-none"></i>
+                        
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3 relative z-10"><i class="fa-solid fa-bullhorn text-red-400"></i> My Education Advocate Manifesto</h3>
+                        <p class="text-blue-100 mb-6 text-sm relative z-10">Write a personal pledge. How will you continue to advocate for quality education in your community? What actions will you commit to?</p>
+                        
+                        <div class="space-y-6 relative z-10">
+                            <textarea id="w4-manifesto" rows="5" class="w-full bg-white/10 border border-blue-400/30 rounded p-4 text-white placeholder-blue-200/50 focus:ring-2 focus:ring-red-400 outline-none transition-all font-serif italic text-lg leading-relaxed shadow-inner" placeholder='"I pledge to use my voice to..."'></textarea>
+                            
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                <button onclick="saveProgress('week4')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded shadow-lg transition-transform hover:-translate-y-1 flex items-center gap-2">
+                                    <i class="fa-solid fa-signature"></i> Sign Manifesto & Complete Module
+                                </button>
+                                <span id="w4-save-msg" class="text-green-300 font-medium text-sm hidden bg-white/10 px-4 py-2 rounded-full border border-green-300/30">
+                                    <i class="fa-solid fa-party-horn mr-1"></i> Module Complete! Saved successfully.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMPLETION MESSAGE (Unlocked at 100%) -->
+                    <div id="completion-message" class="hidden mt-8 bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl shadow-xl border border-emerald-500 p-8 text-white text-center animate-fade-in relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
+                        <i class="fa-solid fa-award text-6xl mb-4 text-yellow-300 relative z-10 drop-shadow-lg"></i>
+                        <h3 class="text-3xl font-extrabold mb-4 relative z-10 tracking-tight">Congratulations, Global Advocate!</h3>
+                        <p class="text-emerald-50 text-lg mb-8 relative z-10 max-w-2xl mx-auto font-light leading-relaxed">
+                            You have successfully completed the <strong>Learning Without Borders</strong> module. By engaging in local research, personal reflections, and global dialogue, you've taken a massive step toward championing SDG 4: Quality Education.
+                        </p>
+                        <div class="bg-black/20 p-6 rounded-xl backdrop-blur-sm border border-white/10 relative z-10 text-left">
+                            <h4 class="font-bold text-xl mb-3 flex items-center gap-2 text-yellow-300">
+                                <i class="fa-solid fa-lightbulb"></i> Final Words of Wisdom
+                            </h4>
+                            <p class="text-emerald-50 italic leading-relaxed mb-4">
+                                "Education is the most powerful weapon which you can use to change the world." — Nelson Mandela
+                            </p>
+                            <p class="text-sm text-emerald-100 leading-relaxed">
+                                Remember that your learning journey does not stop here. Use your voice to uplift your community, stay relentlessly curious, and continue to challenge the barriers to education. Real change begins with informed, compassionate students like you. Carry these lessons forward and never underestimate the power of your advocacy!
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- HIDDEN PRINT AREAS FOR PDF GENERATION      -->
+    <!-- ========================================== -->
+
+    <!-- Print Area 1: The Answers Portfolio -->
+    <div id="print-portfolio" class="print-only bg-white text-black p-8 max-w-4xl mx-auto">
+        <div class="text-center mb-8 border-b-2 border-black pb-4">
+            <h1 class="text-3xl font-bold">Learning Without Borders</h1>
+            <h2 class="text-xl text-gray-700">SDG 4: Quality Education - Student Portfolio</h2>
+            <p class="mt-2 font-semibold">Student: <span id="print-port-student"></span> | Country: <span id="print-port-country"></span></p>
+        </div>
+
+        <div id="print-section-w1" class="mb-8">
+            <h3 class="text-xl font-bold bg-gray-100 p-2 mb-4 border-l-4 border-gray-800">Week 1: My Education Story</h3>
+            <p class="font-bold mb-1">1. What helps you learn effectively?</p>
+            <p id="print-w1-q1" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+            <p class="font-bold mb-1">2. Challenges faced in school:</p>
+            <p id="print-w1-q2" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+            <p class="font-bold mb-1">3. Use of technology:</p>
+            <p id="print-w1-q3" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+        </div>
+
+        <div id="print-section-w2" class="mb-8">
+            <h3 class="text-xl font-bold bg-gray-100 p-2 mb-4 border-l-4 border-gray-800">Week 2: Student Voices Project</h3>
+            <p class="font-bold mb-1">1. Group Learnings:</p>
+            <p id="print-w2-q1" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+            <p class="font-bold mb-1">2. Identified Challenges:</p>
+            <p id="print-w2-q2" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+            <p class="font-bold mb-1">3. Community Strengths:</p>
+            <p id="print-w2-q3" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+        </div>
+
+        <div id="print-section-w3" class="mb-8 page-break">
+            <h3 class="text-xl font-bold bg-gray-100 p-2 mb-4 border-l-4 border-gray-800">Week 3: Dialogue & Reflection</h3>
+            <p class="font-bold mb-2 text-lg">Pre-Dialogue Comparison</p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Similarities:</p> 
+            <p id="print-w3-sim" class="mb-3 pl-4 text-gray-800"></p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Differences:</p> 
+            <p id="print-w3-diff" class="mb-3 pl-4 text-gray-800"></p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Surprises:</p> 
+            <p id="print-w3-surp" class="mb-5 pl-4 text-gray-800"></p>
+
+            <p class="font-bold mb-2 text-lg">Post-Dialogue Reflection</p>
+            <p id="print-w3-ref" class="mb-4 pl-4 border-l-2 border-gray-300 text-gray-800"></p>
+        </div>
+
+        <div id="print-section-w4" class="mb-8 page-break">
+            <h3 class="text-xl font-bold bg-gray-100 p-2 mb-4 border-l-4 border-gray-800">Week 4: Advocacy & Action</h3>
+            <p class="font-bold mb-2 text-lg">Final Recommendations</p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Inclusive Education:</p> 
+            <p id="print-w4-rec1" class="mb-3 pl-4 text-gray-800 border-l-2 border-blue-200"></p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Student Well-being:</p> 
+            <p id="print-w4-rec2" class="mb-3 pl-4 text-gray-800 border-l-2 border-blue-200"></p>
+            <p class="font-semibold mb-1 text-sm text-gray-700">Responsible AI Use:</p> 
+            <p id="print-w4-rec3" class="mb-6 pl-4 text-gray-800 border-l-2 border-blue-200"></p>
+            
+            <p class="font-bold mb-2 text-xl text-indigo-900 border-b-2 border-indigo-900 inline-block">My Education Advocate Manifesto</p>
+            <div class="mt-4 p-6 bg-indigo-50 border border-indigo-200 rounded-lg">
+                <p id="print-w4-manifesto" class="text-indigo-900 font-serif italic text-xl leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // State Management
+        let appState = {
+            studentId: '',
+            country: '',
+            started: false,
+            progress: { week1: false, week2: false, week3: false, week4: false }
+        };
+
+        const textInputs = [
+            'w1-q1', 'w1-q2', 'w1-q3', 'w2-q1', 'w2-q2', 'w2-q3',
+            'w3-chart-sim', 'w3-chart-diff', 'w3-chart-surp', 'w3-reflection',
+            'w4-rec-inc', 'w4-rec-well', 'w4-rec-ai', 'w4-manifesto'
+        ];
+
+        window.onload = () => {
+            const lastUser = localStorage.getItem('sdg4_lastUser');
+            if (lastUser) {
+                appState.studentId = lastUser;
+                loadState();
+            }
+
+            if (appState.started) {
+                document.getElementById('welcome-app').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('flex');
+                updateSidebarInfo();
+                loadInputs();
+                updateProgress();
+                showView('home');
+            } else {
+                document.getElementById('welcome-app').classList.remove('hidden');
+                document.getElementById('main-app').classList.add('hidden');
+            }
+        };
+
+        function startModule() {
+            const studentIdInput = document.getElementById('welcome-student-id');
+            const studentId = studentIdInput.value.trim();
+            const errorMsg = document.getElementById('student-id-error');
+
+            if (!studentId) {
+                studentIdInput.classList.add('border-red-500', 'bg-red-50');
+                errorMsg.classList.remove('hidden');
+                return; // Stop execution
+            } else {
+                studentIdInput.classList.remove('border-red-500', 'bg-red-50');
+                errorMsg.classList.add('hidden');
+            }
+
+            let country = 'Not Specified';
+            for (let option of document.getElementsByName('welcome-country')) {
+                if (option.checked) { country = option.value; break; }
+            }
+
+            appState.studentId = studentId;
+            
+            // Load previous state if this student has played before
+            loadState(); 
+            // Override with newly selected country and ensure started
+            appState.country = country;
+            appState.started = true;
+            saveState();
+
+            document.getElementById('welcome-app').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('main-app').classList.add('flex');
+            
+            updateSidebarInfo();
+            loadInputs(); // Load text fields specifically for this student
+            updateProgress();
+            showView('home');
+        }
+
+        function logout() {
+            appState.started = false;
+            saveState();
+            localStorage.removeItem('sdg4_lastUser'); // Stop auto-login
+            
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('flex');
+            document.getElementById('welcome-app').classList.remove('hidden');
+            document.getElementById('welcome-student-id').value = '';
+        }
+
+        function updateSidebarInfo() {
+            document.getElementById('sidebar-student-id').innerText = appState.studentId;
+            document.getElementById('sidebar-country').innerText = appState.country;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('opacity-0', 'scale-95');
+            toast.classList.add('opacity-100', 'scale-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'scale-100');
+                toast.classList.add('opacity-0', 'scale-95');
+            }, 3000);
+        }
+
+        function showView(viewId) {
+            // Lock enforcement
+            if (viewId === 'week2' && !appState.progress.week1) { showToast('Please complete and save Week 1 to unlock Week 2.'); return; }
+            if (viewId === 'week3' && !appState.progress.week2) { showToast('Please complete and save Week 2 to unlock Week 3.'); return; }
+            if (viewId === 'week4' && !appState.progress.week3) { showToast('Please complete and save Week 3 to unlock Week 4.'); return; }
+
+            // Hide all view sections cleanly
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            
+            // Show target view
+            const targetView = document.getElementById('view-' + viewId);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                targetView.classList.add('block');
+            }
+
+            // Reset navigation styles without destroying base classes like 'hidden' or affecting the Print button
+            const navItems = [
+                { id: 'nav-home', icon: 'fa-house' },
+                { id: 'nav-week1', icon: 'fa-book-open' },
+                { id: 'nav-week2', icon: 'fa-microphone' },
+                { id: 'nav-week3', icon: 'fa-handshake' },
+                { id: 'nav-week4', icon: 'fa-bullhorn' }
+            ];
+            
+            navItems.forEach(item => {
+                const btn = document.getElementById(item.id);
+                if (btn) {
+                    btn.classList.remove('bg-blue-50', 'text-blue-700', 'font-semibold');
+                    btn.classList.add('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
+                    
+                    // Restore original icon if it's not locked
+                    if (!btn.classList.contains('cursor-not-allowed')) {
+                        const iElement = btn.querySelector('i');
+                        if(iElement) iElement.className = `fa-solid ${item.icon} w-5`;
+                    }
+                }
+            });
+
+            // Set active state styling on the selected tab
+            const activeBtn = document.getElementById('nav-' + viewId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-50', 'hover:text-slate-900');
+                activeBtn.classList.add('bg-blue-50', 'text-blue-700', 'font-semibold');
+            }
+
+            // Close mobile menu if open
+            if(window.innerWidth < 768) {
+                const navMenu = document.querySelector('nav');
+                if (navMenu) navMenu.classList.add('hidden');
+            }
+        }
+
+        function checkQuiz() {
+            let score = 0;
+            if (document.querySelector('input[name="q1"]:checked')?.value === 'b') score++;
+            if (document.querySelector('input[name="q2"]:checked')?.value === 'b') score++;
+            if (document.querySelector('input[name="q3"]:checked')?.value === 'b') score++;
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.className = `mt-4 p-4 rounded font-medium ${score === 3 ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`;
+            feedback.innerHTML = score === 3 
+                ? '<i class="fa-solid fa-circle-check mr-2"></i> Excellent! You got 3/3 correct.' 
+                : `<i class="fa-solid fa-triangle-exclamation mr-2"></i> You got ${score}/3 correct. Hint: Correct answers highlight equity, basic sanitation, and the digital divide.`;
+        }
+
+        function saveProgress(week) {
+            textInputs.forEach(id => localStorage.setItem(`sdg4_${appState.studentId}_${id}`, document.getElementById(id).value));
+            
+            if (week === 'week1') appState.progress.week1 = document.getElementById('w1-q1').value.trim() !== '';
+            if (week === 'week2') appState.progress.week2 = document.getElementById('w2-q1').value.trim() !== '';
+            if (week === 'week3') appState.progress.week3 = document.getElementById('w3-reflection').value.trim() !== '';
+            if (week === 'week4') appState.progress.week4 = document.getElementById('w4-manifesto').value.trim() !== '';
+
+            saveState();
+            updateProgress();
+
+            const msgEl = document.getElementById(`${week === 'week1' ? 'w1' : week === 'week2' ? 'w2' : week === 'week3' ? 'w3' : 'w4'}-save-msg`);
+            if(msgEl) {
+                msgEl.classList.remove('hidden');
+                setTimeout(() => msgEl.classList.add('hidden'), 3000);
+            }
+        }
+
+        function loadInputs() {
+            textInputs.forEach(id => {
+                const saved = localStorage.getItem(`sdg4_${appState.studentId}_${id}`);
+                document.getElementById(id).value = saved || ''; // Load saved data or clear if empty
+            });
+        }
+
+        function saveState() { 
+            localStorage.setItem(`sdg4_appState_${appState.studentId}`, JSON.stringify(appState));
+            localStorage.setItem('sdg4_lastUser', appState.studentId);
+        }
+        
+        function loadState() { 
+            const saved = localStorage.getItem(`sdg4_appState_${appState.studentId}`); 
+            if (saved) {
+                appState = JSON.parse(saved); 
+            } else {
+                // Reset progress for a brand new student ID
+                appState.progress = { week1: false, week2: false, week3: false, week4: false };
+            }
+        }
+
+        function updateProgress() {
+            let completed = (appState.progress.week1 ? 25 : 0) + (appState.progress.week2 ? 25 : 0) + (appState.progress.week3 ? 25 : 0) + (appState.progress.week4 ? 25 : 0);
+            document.getElementById('progress-bar').style.width = `${completed}%`;
+            document.getElementById('progress-text').innerText = `${completed}%`;
+            
+            // --- UPDATE LOCKS UI ---
+            const locks = {
+                week2: !appState.progress.week1,
+                week3: !appState.progress.week2,
+                week4: !appState.progress.week3
+            };
+
+            ['week2', 'week3', 'week4'].forEach(week => {
+                const navBtn = document.getElementById(`nav-${week}`);
+                const homeCard = document.getElementById(`card-${week}`);
+                const iconBase = week === 'week2' ? 'fa-microphone' : week === 'week3' ? 'fa-handshake' : 'fa-bullhorn';
+
+                if (locks[week]) {
+                    // Lock Sidebar Item
+                    if (navBtn) {
+                        navBtn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
+                        navBtn.classList.remove('hover:bg-slate-50', 'hover:text-slate-900', 'text-slate-600');
+                        const iEl = navBtn.querySelector('i');
+                        if(iEl) iEl.className = 'fa-solid fa-lock w-5 text-slate-400';
+                    }
+                    // Lock Home Card
+                    if (homeCard) {
+                        homeCard.classList.add('opacity-60', 'cursor-not-allowed', 'bg-slate-50');
+                        homeCard.classList.remove('hover:shadow-md', 'bg-white');
+                        const iconContainer = homeCard.querySelector('.icon-container');
+                        if (iconContainer) {
+                            iconContainer.classList.replace('text-blue-600', 'text-slate-400');
+                            iconContainer.querySelector('i').className = 'fa-solid fa-lock text-2xl';
+                        }
+                    }
+                } else {
+                    // Unlock Sidebar Item
+                    if (navBtn) {
+                        navBtn.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-100');
+                        navBtn.classList.add('hover:bg-slate-50', 'hover:text-slate-900', 'text-slate-600');
+                        
+                        // Restore base icon if it was previously locked
+                        const iEl = navBtn.querySelector('i');
+                        if (iEl && iEl.classList.contains('fa-lock')) {
+                            iEl.className = `fa-solid ${iconBase} w-5`;
+                        }
+                    }
+                    // Unlock Home Card
+                    if (homeCard) {
+                        homeCard.classList.remove('opacity-60', 'cursor-not-allowed', 'bg-slate-50');
+                        homeCard.classList.add('hover:shadow-md', 'bg-white');
+                        const iconContainer = homeCard.querySelector('.icon-container');
+                        if (iconContainer) {
+                            iconContainer.classList.replace('text-slate-400', 'text-blue-600');
+                            iconContainer.querySelector('i').className = `fa-solid ${iconBase} text-2xl`;
+                        }
+                    }
+                }
+            });
+
+            const completionMsg = document.getElementById('completion-message');
+            if (completionMsg) {
+                if (completed === 100) {
+                    completionMsg.classList.remove('hidden');
+                    // Add a small celebration scroll if currently viewing Week 4
+                    if(document.getElementById('view-week4').classList.contains('block')){
+                        setTimeout(() => completionMsg.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                    }
+                } else {
+                    completionMsg.classList.add('hidden');
+                }
+            }
+        }
+
+        // --- DOWNLOAD/PRINT LOGIC ---
+        function populatePrintData() {
+            // Populate Portfolio
+            document.getElementById('print-port-student').innerText = appState.studentId;
+            document.getElementById('print-port-country').innerText = appState.country;
+            document.getElementById('print-w1-q1').innerText = document.getElementById('w1-q1').value || 'Not answered';
+            document.getElementById('print-w1-q2').innerText = document.getElementById('w1-q2').value || 'Not answered';
+            document.getElementById('print-w1-q3').innerText = document.getElementById('w1-q3').value || 'Not answered';
+            document.getElementById('print-w2-q1').innerText = document.getElementById('w2-q1').value || 'Not answered';
+            document.getElementById('print-w2-q2').innerText = document.getElementById('w2-q2').value || 'Not answered';
+            document.getElementById('print-w2-q3').innerText = document.getElementById('w2-q3').value || 'Not answered';
+            document.getElementById('print-w3-sim').innerText = document.getElementById('w3-chart-sim').value || 'Not answered';
+            document.getElementById('print-w3-diff').innerText = document.getElementById('w3-chart-diff').value || 'Not answered';
+            document.getElementById('print-w3-surp').innerText = document.getElementById('w3-chart-surp').value || 'Not answered';
+            document.getElementById('print-w3-ref').innerText = document.getElementById('w3-reflection').value || 'Not answered';
+            document.getElementById('print-w4-rec1').innerText = document.getElementById('w4-rec-inc').value || 'Not answered';
+            document.getElementById('print-w4-rec2').innerText = document.getElementById('w4-rec-well').value || 'Not answered';
+            document.getElementById('print-w4-rec3').innerText = document.getElementById('w4-rec-ai').value || 'Not answered';
+            document.getElementById('print-w4-manifesto').innerText = document.getElementById('w4-manifesto').value || 'Not answered';
+
+            // Filter print sections to only show weeks with progress/content
+            const hasW1 = document.getElementById('w1-q1').value.trim() !== '' || document.getElementById('w1-q2').value.trim() !== '' || appState.progress.week1;
+            const hasW2 = document.getElementById('w2-q1').value.trim() !== '' || appState.progress.week2;
+            const hasW3 = document.getElementById('w3-reflection').value.trim() !== '' || document.getElementById('w3-chart-sim').value.trim() !== '' || appState.progress.week3;
+            const hasW4 = document.getElementById('w4-manifesto').value.trim() !== '' || document.getElementById('w4-rec-inc').value.trim() !== '' || appState.progress.week4;
+
+            document.getElementById('print-section-w1').style.display = hasW1 ? 'block' : 'none';
+            document.getElementById('print-section-w2').style.display = hasW2 ? 'block' : 'none';
+            document.getElementById('print-section-w3').style.display = hasW3 ? 'block' : 'none';
+            document.getElementById('print-section-w4').style.display = hasW4 ? 'block' : 'none';
+            
+            // Fallback message if all are hidden
+            let noDataEl = document.getElementById('print-no-data');
+            if (!hasW1 && !hasW2 && !hasW3 && !hasW4) {
+                if (!noDataEl) {
+                    noDataEl = document.createElement('div');
+                    noDataEl.id = 'print-no-data';
+                    noDataEl.className = 'text-center py-10 text-gray-500 italic';
+                    noDataEl.innerText = 'No reflections have been completed yet. Complete a module to see it here.';
+                    document.getElementById('print-portfolio').appendChild(noDataEl);
+                }
+                noDataEl.style.display = 'block';
+            } else if (noDataEl) {
+                noDataEl.style.display = 'none';
+            }
+        }
+
+        function downloadPortfolio() {
+            populatePrintData();
+            document.body.classList.add('printing-portfolio');
+            window.print();
+            // Small delay to ensure the print dialog opens before removing the class
+            setTimeout(() => { document.body.classList.remove('printing-portfolio'); }, 500);
+        }
+    </script>
+</body>
+</html>
